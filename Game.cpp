@@ -4,23 +4,31 @@
 #include "ZagadaiChislo.h"
 #include "HighScore.h"
 void GameLoop(int a, int b,int&c);
-void Setup(int&);
+void Setup(int&,int);
 
 
-int main() {
+int main(int argc, char** argv)
+ {
+	int max_value;
+	if(argc > 1&&std::string(argv[1])=="-max") max_value=(int)argv[2];
+	max_value=100;
+	
+	
+	std::cout<<(argc > 1&&std::string(argv[1])=="-max") <<"   " << argv[1]<<"   "<<argv[2]<<"   "<<max_value;
+
     std::string user_name;
-	int attempt=0;
+	int attempt=1;
     int target;
     int current_value=0;
     std::cout << "Hi! Enter your name, please:" << std::endl;
 	std::cin >> user_name;
 
-    Setup(target);
+    Setup(target,max_value);
 
 
-std::cout << target << std::endl;
-
+std::cout << target << std::endl;//лень
 std::cout <<user_name <<" enter your guess:" << std::endl;
+
 GameLoop(current_value,target, attempt);
 CreateandWriteinFile (user_name, attempt);
 ReadFile();
@@ -49,7 +57,7 @@ void GameLoop(int current_value, int target, int& attempt)
 	} while(true);
 
 }
-void Setup(int &target)
+void Setup(int &target, int max_value)
 {
-    target=ZagadayChislo();
+    target=ZagadayChislo(max_value);
 }
