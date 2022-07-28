@@ -1,11 +1,12 @@
 #include "HighScore.h"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
-#include <string>
 
 
-int CreateandWriteinFile(const std::string& user_name, int atempt) 
+//int CreateandWriteinFile(const std::string& user_name, int atempt) //con
+int CreateandWriteinFile(person Player)
 {
 
 	const std::string high_scores_filename = "high_scores.txt";
@@ -16,12 +17,16 @@ int CreateandWriteinFile(const std::string& user_name, int atempt)
 			return -1;
 		}
 		// Append new results to the table:
-		out_file << user_name << ' ';
-		out_file << atempt;
+		out_file << Player.user_name << ' ';
+		out_file << Player.attempt;
 		out_file << std::endl;
 }
 int ReadFile()
 	{
+		int size=100;
+		person* savedata=new person[size];	
+
+		
         char answer;
         std::cout<<"Posmotrim records?(y or somthing else)";
         std::cin>>answer;
@@ -35,24 +40,39 @@ int ReadFile()
 		}
 
 		std::cout << "High scores table:" << std::endl;
-
-		std::string username;
-		int high_score = 0;
-		while (true) {
+		
+				//std::string username;
+		//int high_score = 0;
+		int counter=0;
+		while (true)
+		 {
 			// Read the username first
-			in_file >> username;
+			in_file >>  savedata[counter].user_name;
+			
 			// Read the high score next
-			in_file >> high_score;
+			in_file >> savedata[counter].attempt;
 			// Ignore the end of line symbol
 			in_file.ignore();
+			counter++;
 
 			if (in_file.fail()) {
 				break;
 			}
+			
+			
+			
 
 			// Print the information to the screen
-			std::cout << username << '\t' << high_score << std::endl;
+			//std::cout << username << '\t' << high_score << std::endl;
 		}
-        }
+		std::cout<<counter<<std::endl;
+		for(int i=0;i<counter-1;i++)
+		{
+			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
+		}
+
+		
+		}
+        
         return 0;
 	}

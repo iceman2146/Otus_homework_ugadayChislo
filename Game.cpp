@@ -4,12 +4,15 @@
 
 #include "ZagadaiChislo.h"
 #include "HighScore.h"
+
+
 void GameLoop(int a, int b,int&c);
 void Setup(int&,int);
 
 
 int main(int argc, char** argv)
  {
+	person Player;
 	int max_value=100;
 	if (argc>1&&!strcmp(argv[1],"-max")&&(argv[2])&&atoi(argv[2])>0)
 		max_value=atoi(argv[2]);
@@ -37,21 +40,22 @@ int main(int argc, char** argv)
 	max_value=100;
 	//std::cout<<(argc > 1&&std::string(argv[1])=="-max")<<max_value <<std::endl;
 
-    std::string user_name;
-	int attempt=1;
+    //std::string user_name;
+	Player.attempt=1;
+
     int target;
     int current_value=0;
     std::cout << "Hi! Enter your name, please:" << std::endl;
-	std::cin >> user_name;
+	std::cin >> Player.user_name;
 
     Setup(target,max_value);
 
 
 std::cout << target << std::endl;//лень
-std::cout <<user_name <<" enter your guess:" << std::endl;
+std::cout <<Player.user_name <<" enter your guess:" << std::endl;
 
-GameLoop(current_value,target, attempt);
-CreateandWriteinFile (user_name, attempt);
+GameLoop(current_value,target, Player.attempt);
+CreateandWriteinFile (Player);
 ReadFile();
 	return 0; 
 }
