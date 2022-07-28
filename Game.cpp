@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <typeinfo>
 
 #include "ZagadaiChislo.h"
 #include "HighScore.h"
@@ -9,12 +10,14 @@ void Setup(int&,int);
 
 int main(int argc, char** argv)
  {
-	int max_value;
-	if(argc > 1&&std::string(argv[1])=="-max") max_value=(int)argv[2];
+	int max_value=100;
+	if (argc>1&&!strcmp(argv[1],"-max")&&(argv[2])&&atoi(argv[2])>0)
+		max_value=atoi(argv[2]);
+
+	
+	else
 	max_value=100;
-	
-	
-	std::cout<<(argc > 1&&std::string(argv[1])=="-max") <<"   " << argv[1]<<"   "<<argv[2]<<"   "<<max_value;
+	//std::cout<<(argc > 1&&std::string(argv[1])=="-max")<<max_value <<std::endl;
 
     std::string user_name;
 	int attempt=1;
