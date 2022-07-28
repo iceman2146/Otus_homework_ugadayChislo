@@ -13,13 +13,27 @@ int main(int argc, char** argv)
 	int max_value=100;
 	if (argc>1&&!strcmp(argv[1],"-max")&&(argv[2])&&atoi(argv[2])>0)
 		max_value=atoi(argv[2]);
-
-	
 	else if(argc>1&&!strcmp(argv[1],"-table"))
 	{
 		ReadFile();
 		return 0;
 	}
+	else if (argc>1&&!strcmp(argv[1],"-level")&&(argv[2])&&atoi(argv[2])>0)
+		switch (atoi(argv[2]))
+		{
+		case 1:
+			max_value=10;
+			break;
+		case 2:
+			max_value=50;
+			break;
+		case 3:
+			max_value=100;
+			break;
+		default:
+			break;
+		}
+	else
 	max_value=100;
 	//std::cout<<(argc > 1&&std::string(argv[1])=="-max")<<max_value <<std::endl;
 
