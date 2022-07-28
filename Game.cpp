@@ -15,7 +15,11 @@ int main(int argc, char** argv)
 		max_value=atoi(argv[2]);
 
 	
-	else
+	else if(argc>1&&!strcmp(argv[1],"-table"))
+	{
+		ReadFile();
+		return 0;
+	}
 	max_value=100;
 	//std::cout<<(argc > 1&&std::string(argv[1])=="-max")<<max_value <<std::endl;
 
