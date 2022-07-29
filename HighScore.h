@@ -9,3 +9,6 @@ struct person
 int CreateandWriteinFile(person p);
 int ReadFile();
 //void WriteFile();
+void qSortMas(person*,int);
+void removeNulEllemFromMas(person*,int&);
+void removeDuplicatedEllemFromMas(person*,int&);

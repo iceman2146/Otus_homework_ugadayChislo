@@ -70,9 +70,83 @@ int ReadFile()
 		{
 			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
 		}
-
-		
+		qSortMas(savedata,counter);
+		std::cout<<counter<<std::endl;
+		for(int i=0;i<counter-1;i++)
+		{
+			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
+		}
+		removeNulEllemFromMas(savedata,counter);
+		std::cout<<counter<<std::endl;
+		for(int i=0;i<counter-1;i++)
+		{
+			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
+		}
+		removeDuplicatedEllemFromMas(savedata,counter);
+		std::cout<<counter<<std::endl;
+		for(int i=0;i<counter-1;i++)
+		{
+			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
+		}
 		}
         
         return 0;
 	}
+
+void qSortMas(person *massive, int size)
+
+{
+	int nachalo_massiva=0;
+	int Konec_massiva=size-1;
+	person middle_ellement=massive[size/2];
+
+	do
+	{
+		while(massive[nachalo_massiva].attempt<middle_ellement.attempt){nachalo_massiva++;}
+		while(massive[Konec_massiva].attempt>middle_ellement.attempt){Konec_massiva--;}
+		if(nachalo_massiva<=Konec_massiva)
+		{
+			person tmp;
+			tmp=massive[nachalo_massiva];
+			massive[nachalo_massiva]=massive[Konec_massiva];
+			massive[Konec_massiva]=tmp;
+			nachalo_massiva++;
+			Konec_massiva--;
+		}
+
+	}while (nachalo_massiva<=Konec_massiva);
+	if(Konec_massiva>0)
+	qSortMas(massive,Konec_massiva+1);
+	if(nachalo_massiva<size)
+	qSortMas(&massive[nachalo_massiva],size-nachalo_massiva);
+	
+}
+void removeNulEllemFromMas(person *massive, int &size)
+{
+	int nullCounter=0;
+	for (int i=0;i<size-1;i++)
+	{
+		if(massive[i].attempt<=0) nullCounter++;
+	}
+	for (int i=0;i<size-1;i++)
+	{
+		massive[i].user_name=massive[i+nullCounter].user_name;
+		massive[i].attempt=massive[i+nullCounter].attempt;
+	}
+	size-=nullCounter;
+}
+
+void removeDuplicatedEllemFromMas(person *massive, int &size)
+{
+	int duplCounter=0;
+	for (int i=0;i<size-1;i++)
+	{
+		if(massive[i].user_name==massive[i+1].user_name) duplCounter++;
+	}
+	for (int i=0;i<size-1;i++)
+	{
+		massive[i].user_name=massive[i+duplCounter].user_name;
+		massive[i].attempt=massive[i+duplCounter].attempt;
+	}
+	size-=duplCounter;
+}
