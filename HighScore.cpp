@@ -38,11 +38,6 @@ int ReadFile()
 			std::cout << "Failed to open file for read: " << high_scores_filename << "!" << std::endl;
 			return -1;
 		}
-
-		std::cout << "High scores table:" << std::endl;
-		
-				//std::string username;
-		//int high_score = 0;
 		int counter=0;
 		while (true)
 		 {
@@ -58,36 +53,21 @@ int ReadFile()
 			if (in_file.fail()) {
 				break;
 			}
-			
-			
-			
-
-			// Print the information to the screen
-			//std::cout << username << '\t' << high_score << std::endl;
 		}
-		std::cout<<counter<<std::endl;
-		for(int i=0;i<counter-1;i++)
-		{
-			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
-		}
+		
 		qSortMas(savedata,counter);
-		std::cout<<counter<<std::endl;
-		for(int i=0;i<counter-1;i++)
-		{
-			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
-		}
 		removeNulEllemFromMas(savedata,counter);
-		std::cout<<counter<<std::endl;
+		
+
+		//removeDuplicatedEllemFromMas(savedata,counter);//!!!!!в данном цикле ошибка, не могу понять почему, но обязательно разберусь
+		std::cout << "High scores table:" <<counter<< std::endl;
+		
 		for(int i=0;i<counter-1;i++)
 		{
 			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
 		}
-		removeDuplicatedEllemFromMas(savedata,counter);
-		std::cout<<counter<<std::endl;
-		for(int i=0;i<counter-1;i++)
-		{
-			std::cout<<std::setw(10)<<std::setiosflags(std::ios::left)<<savedata[i].user_name<<":       "<<savedata[i].attempt<<std::endl;
-		}
+		
+		
 		}
         
         return 0;
@@ -138,15 +118,14 @@ void removeNulEllemFromMas(person *massive, int &size)
 
 void removeDuplicatedEllemFromMas(person *massive, int &size)
 {
-	int duplCounter=0;
-	for (int i=0;i<size-1;i++)
-	{
-		if(massive[i].user_name==massive[i+1].user_name) duplCounter++;
+	int counter=0;
+	for (int i=0;i<size;i++){
+		for (int j=i+1;j<size;j++){
+			if(massive[i].user_name==massive[j].user_name){
+				massive[j].user_name=massive[j+1].user_name;
+				massive[j].attempt=massive[j+1].attempt;
+				size--;
+			}
+		}
 	}
-	for (int i=0;i<size-1;i++)
-	{
-		massive[i].user_name=massive[i+duplCounter].user_name;
-		massive[i].attempt=massive[i+duplCounter].attempt;
-	}
-	size-=duplCounter;
 }
